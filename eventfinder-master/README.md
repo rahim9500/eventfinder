@@ -4,7 +4,7 @@
 **Participents** can search for events and apply for which they like <br />
 **Searchers** can create events and manage them.
 
-## Installation
+## Installation and Run
 
 - Clone the repository:
   ```bash
@@ -25,6 +25,10 @@
 - Install the dependencies:
   ```bash
    pip install -r requirements.txt
+  ```
+  - edit in config/.env:
+  ```bash
+   add your Mail and password
   ```
 - Run the application:
   ```bash
