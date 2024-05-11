@@ -26,7 +26,7 @@
   ```bash
    pip install -r requirements.txt
   ```
-  - edit in config/.env:
+- edit in config/.env:
   ```bash
    add your Mail and password
   ```
