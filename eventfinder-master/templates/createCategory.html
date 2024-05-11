@@ -1,0 +1,20 @@
+{% extends 'basic/category_base.html' %}
+{% block title %}Kategorie Erstellen{% endblock %}
+{% block content %}
+
+<div class="card-container create background">
+    <div class="card card-body create lightgrey">
+        <h7><strong>Kategorie erstellen</strong></h7>
+        <form action="{{ url_for('add_category') }}" method="POST">
+
+            <div class="mb-3">
+                <label for="eventName" class="form-label">Name der Kategorie</label>
+                <input type="text" name="kategorieName" id="eventName" class="form-control" required>
+            </div>
+
+            <button id="submitButton" type="submit" class="btn btn-primary">Erstellen</button>
+
+        </form>
+    </div> 
+</div>
+{% endblock content %}

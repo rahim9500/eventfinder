@@ -1,0 +1,11 @@
+{% extends 'basic/base.html' %}
+{% block content %}
+<div class="container mt-5 bg-secondary rounded">
+    <h1>Event Löschen</h1>
+    <p>Sind Sie sicher, dass Sie dieses Event löschen möchten?</p>
+    <form action="{{ url_for('delete_event', event_id=event_id, token=token) }}" method="POST">
+            <button type="submit" class="btn btn-danger">Event Löschen</button>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Abbrechen</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+eventfinder.egg-info/
+.DS_Store
+instance/
+.flake8
+
+# Python 
+*.pyc
+*.pyo
+__init__.py
+
+# Tests
+*.coverage
+htmlcov/
+testdb.db
+flaskenv/

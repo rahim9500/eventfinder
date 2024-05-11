@@ -1,0 +1,55 @@
+{% extends 'basic/base.html' %}
+{% block title %}Event{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    
+        <div class="mt-5 col">
+            <div class="card-container savage bg-white rounded pb-3">
+                <div class="card-body mb-3 show savage">
+                    <h3 class="card-title mb-4">{{ event.name }}</h3>
+                    <p class="card-text"><strong>Gesuchte Teilnehmeranzahl:</strong> {{ event.gesuchte_teilnehmer_anzahl }}</p>
+                    {% if event.teilnehmer %}
+                        <p class="card-text"><strong>Aktuelle Teilnehmer:</strong>
+                            {% for teilnehmer in event.teilnehmer %}
+                                {{ teilnehmer.name }}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        </p>
+                    {% else %}
+                        <p class="card-text">Keine Teilnehmer registriert.</p>
+                    {% endif %}
+                    <p class="card-text"><strong>Kategorie/n:</strong>
+                        {% for kategorie in event.kategorien %}
+                            {{ kategorie.name }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                        {% if event.kategorien == [] %}
+                        others
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>Ort:</strong> {{ event.ort }}</p>
+                    <p class="card-text"><strong>Datum/Uhrzeit:</strong> {{ event.datum }} / {{ event.uhrzeit }}</p>
+                    <p class="card-text"><strong>Altersgruppe:</strong>
+                        {{ 'Unter 18' if event.altersgruppe.name == 'UNTER_18' else 'Über 18' }}
+                    </p>
+                    <p class="card-text"><strong>Preis:</strong> {{ '{:.2f}'.format(event.preis) }}€</p>
+                    <p class="card-text"><strong>Veranstaltungsdauer:</strong> {{ event.dauer }} (in Minuten)</p>
+                    <p class="card-text"><strong>Event Status:</strong>
+                        {% if event.status.name == 'AKTIV' %}
+                        Aktiv
+                        {% elif event.status.name == 'ABGESAGT' %}
+                        Abgesagt
+                        {% elif event.status.name == 'ABGESCHLOSSEN' %}
+                        Abgeschlossen
+                        {% else %}
+                        Unbekannter Status
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>Kontakt:</strong> {{ event.suchender.name }}, {{ event.suchender.mail }},  {{ event.suchender.telefon }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

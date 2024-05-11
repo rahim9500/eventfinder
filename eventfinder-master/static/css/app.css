@@ -1,0 +1,22 @@
+body {
+    background-color: black;
+}
+
+.customheader {
+    font-family: 'Pacifico', cursive, 'Bradley Hand', cursive;
+}
+.custom-dropdown {
+    min-width: 500px;
+}
+
+.backbutton {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+.card-container {
+    padding-top: 80px;
+    padding-left: 100px;
+}

@@ -1,0 +1,31 @@
+{% extends 'basic/category_base.html' %}
+{% block title %}Kategorie{% endblock %}
+{% block content %}
+
+<div class="card-container create background">
+    <div class="card card-body create lightgrey">
+        <h7><strong>Kategorie</strong></h7>
+        <form action="{{ url_for('update_category', old_kategorie_name=kategorie.name) }}" method="POST">
+
+        <input type="text" name="kategorieName" id="eventName" class="form-control" onchange="changeButtonDisable()" value="{{ kategorie.name }}" required>
+        <button id="bearbeitenButton" type="submit" class="btn btn-primary" disabled>Bearbeiten</button>
+        <a href="{{ url_for('delete_category', kategorie_name=kategorie.name) }}" class="btn btn-primary" >Löschen</a>
+      </form>
+
+    <script>
+        function changeButtonDisable() {
+
+            let name = "{{kategorie.name}}";
+            let value = document.getElementById("eventName").value;
+
+            if(value === name) document.getElementById("bearbeitenButton").setAttribute("disabled", "disabled");
+            else document.getElementById("bearbeitenButton").removeAttribute("disabled");
+
+        }
+    </script>
+
+
+    </div>
+</div>
+
+{% endblock content %}

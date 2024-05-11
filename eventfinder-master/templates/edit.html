@@ -1,0 +1,101 @@
+{% extends 'basic/base.html' %}
+{% block title %}Event Bearbeiten{% endblock %}
+{% block content %}
+    <div class="card-container create background">
+        <div class="card card-body create lightgrey">
+            <h7><strong>Event bearbeiten</strong></h7>
+            <form action="{{ url_for('edit_event', event_id=event.id, token=token, kategorien=all_kategorien) }}" method="POST">
+                <div class="mb-3">
+                    <label for="eventName" class="form-label">Event Name</label>
+                    <input type="text" name="name" id="eventName" class="form-control" required
+                           value="{{ event.name }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="dauer" class="form-label">Dauer</label>
+                    <input type="number" name="dauer" id="dauer" class="form-control" required
+                           value="{{ event.dauer }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="ort" class="form-label">Ort</label>
+                    <input type="text" name="ort" id="ort" class="form-control" required
+                           value="{{ event.ort }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="datum" class="form-label">Datum</label>
+                    <input type="date" name="datum" id="datum" class="form-control" required
+                           value="{{ event.datum }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="uhrzeit" class="form-label">Uhrzeit</label>
+                    <input type="time" name="uhrzeit" id="uhrzeit" class="form-control" required
+                           value="{{ event.uhrzeit }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="altersgruppe" class="form-label">Altersgruppe</label>
+                    <select class="form-select form-control" name="altersgruppe" id="altersgruppe" required>
+                        <option value="UNTER_18" {% if event.altersgruppe.name == 'UNTER_18' %}selected{% endif %}>Unter 18</option>
+                        <option value="UEBER_18" {% if event.altersgruppe.name == 'UEBER_18' %}selected{% endif %}>Über 18</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="preis" class="form-label">Preis</label>
+                    <input type="text" name="preis" id="preis" class="form-control" required min="0"
+                           value="{{ '{:.2f}'.format(event.preis) }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select form-control" name="status" id="status" required>
+                        <option value="AKTIV" {% if event.status.name == 'AKTIV' %}selected{% endif %}>Aktiv</option>
+                        <option value="ABGESAGT" {% if event.status.name == 'ABGESAGT' %}selected{% endif %}>Abgesagt</option>
+                        <option value="ABGESCHLOSSEN" {% if event.status.name == 'ABGESCHLOSSEN' %}selected{% endif %}>Abgeschlossen</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="teilnehmerAnzahl" class="form-label">Gesuchte Teilnehmeranzahl</label>
+                    <input type="number" name="gesuchte_teilnehmer_anzahl" id="teilnehmerAnzahl" class="form-control" required
+                           value="{{ event.gesuchte_teilnehmer_anzahl }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="suchenderName" class="form-label">Suchender Name</label>
+                    <input type="text" name="suchender_name" id="suchenderName" class="form-control" required
+                           value="{{ event.suchender.name if event.suchender else '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="suchenderNummer" class="form-label">Suchender Nummer</label>
+                    <input type="text" name="suchender_nummer" id="suchenderNummer" class="form-control" required
+                           value="{{ event.suchender.telefon if event.suchender else '' }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="suchenderMail" class="form-label">Suchender Mail</label>
+                    <input type="text" name="suchender_mail" id="suchenderMail" class="form-control" required
+                           value="{{ event.suchender.mail if event.suchender else '' }}" readonly>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <strong>Kategorien:</strong>
+                    </div>
+                    {% for kategorie in kategorien %}
+                        <div class="form-check">
+                            <input class="form-check-input categoryCheckbox" type="checkbox" id="checkbox{{ kategorie.id }}" name="kategorien" value="{{ kategorie.name }}" {% if kategorie in event.kategorien %}checked{% endif %}>
+                            <label class="form-check-label" for="checkbox{{ kategorie.id }}">{{ kategorie.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Event aktualisieren</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

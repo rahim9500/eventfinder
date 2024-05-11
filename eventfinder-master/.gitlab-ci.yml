@@ -1,0 +1,48 @@
+---
+image: python:3.11.6
+
+stages:
+  - lint
+  - build
+  - test
+  - deploy
+
+before_script:
+  - python -V
+  - pip install -r requirements.txt
+
+lint:
+  stage: lint
+  script:
+    - echo "Linting the app"
+    - black .
+    - flake8 . --max-line-length=130
+
+build:
+  stage: build
+  script:
+    - echo "Building the app"
+    - python -m pip install --upgrade pip
+    - pip install -e .
+
+test:
+  stage: test
+  script:
+    - echo "Running tests"
+    - python test.py
+    #- echo "Skipping test stage to ensure no circular import conflic appears"
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  script:
+    - echo "Deploying the app"
+    - apt-get update -qy
+    - apt-get install -y python3-pip
+    - pip3 install -r requirements.txt
+    - python app.py db upgrade &
+    - sleep 10
+    - echo "App deployment successful"
+    - pkill -f "python app.py"
+# end of file

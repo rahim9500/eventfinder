@@ -1,0 +1,33 @@
+{% extends 'basic/base.html' %}
+{% block title %}Teilnehmer verwalten{% endblock %}
+{% block content %}
+    <div class="container mt-5 bg-secondary rounded">
+        <h2>Teilnehmer verwalten</h2>
+        <p>Fügen Sie einen Teilnehmer zum Event hinzu oder entfernen Sie ihn.</p>
+        <h3>Teilnehmer hinzufügen</h3>
+        <form method="POST" action="{{ url_for('add_participant', event_id=event.id, token=token) }}">
+            <div class="form-group">
+                <label for="participant_name">Teilnehmername:</label>
+                <input type="text" class="form-control my-3" id="participant_name" name="participant_name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Teilnehmer hinzufügen</button>
+        </form>
+        
+        <h3 class="mt-5">Teilnehmer entfernen</h3>
+        <form method="POST" action="{{ url_for('remove_participant', event_id=event.id, token=token) }}">
+            <div class="form-group">
+                <label for="remove_participant_id">Teilnehmer auswählen:</label>
+                <select class="form-control my-3" id="remove_participant_id" name="participant_id" required>
+                    {% for teilnehmer in event.teilnehmer %}
+                        <option value="{{ teilnehmer.id }}">{{ teilnehmer.id }} - {{ teilnehmer.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-danger mb-3">Teilnehmer entfernen</button>
+        </form>
+
+        
+        
+        
+    </div>
+{% endblock %}

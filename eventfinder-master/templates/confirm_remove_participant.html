@@ -1,0 +1,10 @@
+{% extends 'basic/base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Teilnehmer entfernen</h2>
+    <p>Sind Sie sicher, dass Sie diesen Teilnehmer vom Event entfernen möchten?</p>
+    <form action="{{ url_for('remove_participant', event_id=event_id, participant_id=participant_id, token=token) }}" method="POST">
+        <button type="submit" class="btn btn-danger">Teilnehmer entfernen</button>
+    </form>
+</div>
+{% endblock %}
